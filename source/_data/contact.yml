@@ -1,0 +1,9 @@
+- title: github
+  icon: icon-github
+  link: https://github.com/y0ngb1n
+- title: email
+  icon: icon-email
+  link: mailto:y0ngb1n.me@gmail.com
+- title: rss
+  icon: icon-rss
+  link: /atom.xml

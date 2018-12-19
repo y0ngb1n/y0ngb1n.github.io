@@ -1,6 +1,14 @@
 ---
 title: Hello World
+subtitle: Hi！这是我的个人博客。利用 Hexo 开源框架搭载而成。致谢。
+tags:
+- hello-world
+author: 
+  nick: y0ngb1n
+  link: https://www.github.com/y0ngb1n
 ---
+Hi！这是我的个人博客。利用 Hexo 开源框架搭载而成。致谢。
+
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
 ## Quick Start

@@ -1,15 +1,55 @@
-# Hexo Configuration
-## Docs: https://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
-
 # Site
-title: Hexo
-subtitle:
+## 博客的标题 
+title: 杨斌的博客
+## banner 显示的子标题
+subtitle: 杨斌的博客
+## banner 显示的简短介绍
+subtitle_desc: 欢迎来到我的技术小黑屋
+## 博客介绍（同时用于 SEO）
 description:
+## SEO 关键字
 keywords:
-author: John Doe
-language:
+language: zh-cn
 timezone:
+
+## 个人介绍
+introduction: 
+
+## 博客的 favicon 图标，支持本地及在线两种方式，本地请将图标放置于 themes/skapp/source/img 目录下
+favicon_ico: https://i.loli.net/2018/12/19/5c1a3b6b5d11e.png
+
+## 博客的左上角 logo 图标，支持本地及在线两种方式
+logo: https://i.loli.net/2018/12/19/5c1a4854135ce.png
+
+## 头像/二维码（用于显示在底部）二选一
+#avatar: https://example.com/images/qrcode.png
+#qrcode: https://example.com/images/qrcode.png
+
+## 文章的默认封面
+default_cover: https://i.loli.net/2018/12/19/5c1a198188111.gif
+
+## header 的背景图
+header_cover: https://api.spencerwoo.com
+
+## 404 页面的背景图
+error_page_bg: https://i.loli.net/2018/12/19/5c1a3223dde4a.gif
+
+## 页面加载 loading 图标
+loader_img: https://i.loli.net/2018/12/19/5c1a3eb278387.gif
+
+# 站长信息
+author:
+  name: 杨斌
+  link: https://github.com/y0ngb1n
+
+# 用于页面 footer 的站长信息
+about:
+  info: 本站是基于 Hexo 搭建的静态资源博客，主要用于分享日常学习、生活及工作的一些心得总结，欢迎点击右下角订阅 RSS
+  address: Guangzhou, Guangdong Province, China
+  email: y0ngb1n.me@gmail.com
+
+# Busuanzi
+busuanzi: true
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -73,11 +113,11 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: skapp
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
   repo: git@github.com:y0ngb1n/y0ngb1n.github.io.git
-  branch: gh-pages
+  branch: master
