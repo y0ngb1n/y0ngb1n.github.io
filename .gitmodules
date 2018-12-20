@@ -1,0 +1,3 @@
+[submodule "themes/skapp"]
+	path = themes/skapp
+	url = git@github.com:Mrminfive/hexo-theme-skapp.git
