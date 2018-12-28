@@ -18,7 +18,7 @@ introduction:
 favicon_ico: https://i.loli.net/2018/12/19/5c1a3b6b5d11e.png
 
 ## 博客的左上角 logo 图标，支持本地及在线两种方式
-logo: https://i.loli.net/2018/12/19/5c1a4854135ce.png
+logo: https://i.loli.net/2018/12/28/5c260d345cf24.png
 
 ## 头像/二维码（用于显示在底部）二选一
 #avatar: https://example.com/images/qrcode.png
@@ -31,10 +31,10 @@ default_cover: https://i.loli.net/2018/12/19/5c1a198188111.gif
 header_cover: https://api.spencerwoo.com
 
 ## 404 页面的背景图
-error_page_bg: https://i.loli.net/2018/12/19/5c1a3223dde4a.gif
+error_page_bg: https://api.spencerwoo.com
 
 ## 页面加载 loading 图标
-loader_img: https://i.loli.net/2018/12/19/5c1a3eb278387.gif
+loader_img: https://loading.io/assets/img/hourglass.svg
 
 # 站长信息
 author:
