@@ -6,6 +6,7 @@ categories:
   - Hexo 搭建个人博客
 tags:
   - hexo
+  - 个人博客
 author:
   nick: y0ngb1n
   link: 'https://www.github.com/y0ngb1n'
