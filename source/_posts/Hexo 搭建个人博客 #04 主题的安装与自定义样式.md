@@ -1,0 +1,163 @@
+---
+title: 'Hexo 搭建个人博客 #04 主题的安装与自定义样式'
+cover: 'https://i.loli.net/2018/12/27/5c248693e4080.jpg'
+subtitle: Hexo 默认的主题简陋？不太好看？就是不喜欢？Hexo 可以轻松更换博客主题。
+categories:
+  - Hexo 搭建个人博客
+tags:
+  - hexo
+  - 个人博客
+  - git-submodule
+author:
+  nick: y0ngb1n
+  link: 'https://www.github.com/y0ngb1n'
+abbrlink: 2270d168
+date: 2018-12-19 22:00:00
+---
+## Hexo 博客主题
+
+Hexo 默认的主题简陋？不太好看？就是不喜欢？
+
+其实想要更换 Hexo 的主题是很简单的，Hexo 提供了可插拔式的主题机制，让我们可以轻松地更换博客主题。
+
+可以在「[官方收集的主题列表](https://hexo.io/themes/)」挑选任意一个你喜欢的主题，总有一个适合你。
+
+「[skapp](https://github.com/Mrminfive/hexo-theme-skapp)」这个主题挺不错的，接下来就参照这个主题的官网的教程进行安装使用。
+
+## 主题的安装（[skapp](https://github.com/Mrminfive/hexo-theme-skapp/)）
+
+> 各用 Docker 快速搭建 node.js v8.9.3 环境
+
+```
+docker run -it --name node8 --rm \
+  -v $(pwd):/app -w /app \
+  -p 4000:4000 \
+  node:8.9.3 /bin/bash
+```
+
+> 在 windows 下各种报错，无奈转到 Linux 的机子上操作
+
+```bash
+cd blog
+
+# 将 skapp 主题 clone 至 themes/skapp 文件夹下
+git clone https://github.com/Mrminfive/hexo-theme-skapp.git themes/skapp
+
+# 安装 skapp 主题指定的依赖
+# 基于 2018-12-19，有个小坑：要使用 node.js v8.9.3 版本才能正常安装这些依赖，是由于 lunr 仍然在使用 nodejieba 2.2.5 引起的
+npm install --save hexo-autoprefixer hexo-filter-cleanup hexo-generator-feed hexo-generator-sitemap hexo-renderer-sass hexo-renderer-swig mamboer/lunr.js moment node-sass object-assign
+
+hexo clean
+
+hexo server
+```
+
+> �� 能否使用 `Git Submodule` 进行管理第三方主题？
+
+上面直接 `clone` 了 `hexo-theme-skapp` 仓库于 `themes/skapp`，带有 `.git` 文件夹，git 识别为 Submodule，但没有产生外链到原 `hexo-theme-skapp` 仓库，只是个普通的文件夹。当我们把自己的博客仓库 `clone` 到本地后会发现 `themes/skapp` 只是一个普通的空文件夹 :anguished:，主题不见了。
+
+![未使用子模块](https://dn-coding-net-production-pp.codehub.cn/ab7015e1-4a51-46dc-9dbd-bf726f9a56ae.png)
+
+那能不能在执行 `clone` 操作时能直接拉取该主题仓库，而且该主题的源码不托管在我们的仓库中呢？可以的，这时就该使用 `git submodule` 了 :+1:。
+```bash
+# 先取消暂存 themes/skapp 目录
+git rm -r themes/skapp
+
+# 添加子模块
+git submodule add git@github.com:Mrminfive/hexo-theme-skapp.git themes/skapp
+
+# 可以看到新增 .gitmodules 文件
+git status
+```
+
+`.gitmodules` 描述了 Submodule 的远程仓库信息与本仓库的相对路径：
+
+```.gitmodules
+[submodule "themes/skapp"]
+	path = themes/skapp
+	url = git@github.com:Mrminfive/hexo-theme-skapp.git
+```
+
+`.git/config` 中也自动添加了 submodule 信息：
+
+```
+[submodule "themes/skapp"]
+	url = git@github.com:Mrminfive/hexo-theme-skapp.git
+	active = true
+```
+
+以及产生了 `.git/modules` 文件夹，最后提交并推送到博客的远程仓库：
+
+```bash
+git commit -m 'chore: convert to skapp submodule'
+
+git push
+```
+
+[GitHub 仓库](https://github.com/y0ngb1n/y0ngb1n.github.io/tree/a296191cc1bf8e21a7616fb447a34b7bcc89839a/themes) 上会显示出当前所引入的子模块版本：
+
+![convert to skapp submodule](https://dn-coding-net-production-pp.codehub.cn/e939f317-d9f0-46ea-8ff3-de27e8637fc4.png)
+
+当该主题更新了，我们可以更新子模块：
+
+```bash
+git submodule update --remote themes/skapp
+```
+
+或者切换至 `themes/skapp` 目录下使用 `git` 命令切换到不同的历史版本，如果对子模块执行了相关操作后，会提示 `modified: themes/skapp (new commits)`：
+
+```console
+$ git status
+On branch source
+Your branch is up to date with 'origin/source'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   themes/skapp (new commits)
+```
+
+然后按正常流程提交并推送到远程仓库即可。
+
+## 主题的配置
+
+主题的相关配置可以参考「[skapp 官方说明](https://github.com/Mrminfive/hexo-theme-skapp/blob/master/README-cn.md)」，可以设置：菜单、博客信息、联系方式、外部链接等。
+
+> header 的背景图（随机图）
+
+使用了「[Spencer Woo](https://spencerwoo.com/)」家提供的 [https://api.spencerwoo.com](https://api.spencerwoo.com) 接口，可随机不同的图片，在 `_config.yml` 中设置：
+
+```yml
+## header 的背景图
+header_cover: https://api.spencerwoo.com
+```
+
+> 开启「[不蒜子统计](http://busuanzi.ibruce.info/)」
+
+skapp 主题已经集成了「[不蒜子统计](http://busuanzi.ibruce.info/)」，但默认是关闭的，只需在 `_config.yml` 中开启即可：
+
+```yml
+# Busuanzi
+busuanzi: true
+```
+
+![Skapp Hexo 主题](https://i.loli.net/2018/12/19/5c1a4cec018b2.png)
+
+欢迎围观 [我的博客 https://y0ngb1n.github.io/](https://y0ngb1n.github.io/) :wave:
+
+## 自定义样式
+
+> 待续...
+
+## 参考资料
+
+- [官方收集的主题列表](https://hexo.io/themes/)
+- [hexo-theme-skapp 官方说明](https://github.com/Mrminfive/hexo-theme-skapp/blob/master/README-cn.md)
+- [Simple Deskop API | 一喵一图](https://spencerwoo.com/2018/07/30/SimpleAPI/)
+- [OPEN LOGOS](https://openlogos.org/)
+- [Git - gitmodules Documentation](https://www.git-scm.com/docs/gitmodules)
+- [Git Tools - Submodules](https://www.git-scm.com/book/en/v2/Git-Tools-Submodules)
+- [使用 Git Submodule 管理子模块](https://segmentfault.com/a/1190000003076028)
+- [关于 git-submodule 的一些基本操作](https://segmentfault.com/a/1190000009928515)
+
