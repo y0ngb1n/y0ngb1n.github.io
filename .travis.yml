@@ -1,0 +1,26 @@
+language: node_js
+node_js: '8.9.3'
+cache: npm
+
+dist: trusty
+sudo: required
+
+branches:
+  only:
+  - source
+
+before_install:
+  - npm install -g hexo-cli
+
+install:
+  - npm install
+
+script:
+  - hexo clean
+  - hexo generate
+
+after_success:
+  - git config --local user.name "${GIT_USER_NAME}"
+  - git config --local user.email "${GIT_USER_EMAIL}"
+  - sed -i'' "s~git@github.com:~https://${GITHUB_REPO_TOKEN}@github.com/~" _config.yml
+  - hexo deploy > /dev/null
